@@ -3,23 +3,23 @@ const PROJECTS = [
     title: "Event Booking Platform",
     description: "Full-stack booking app: ticketing, authentication, and PDF receipts. Frontend demo uses React + Tailwind.",
     tech: ["React", "Tailwind", "Django", "PostgreSQL"],
-    github: "https://github.com/yourusername/event-booking",
-    live: ""
+    github: "https://github.com/kuhanimkuu/event_booking_platform",
+    live: "https://event-booking-platform-zcql.onrender.com/"
   },
   {
-    title: "Travel Agency Demo",
-    description: "Responsive site showcasing tours, bookings and admin screens. Focus on accessible forms and grid layouts.",
-    tech: ["Django", "Tailwind", "HTML", "CSS"],
-    github: "https://github.com/yourusername/travel-agency",
-    live: ""
+    title: "Video Streaming Platform",
+    description: "A React-based video streaming platform where users can watch and browse videos, similar to YouTube..",
+    tech: ["React", "Tailwind", "HTML", "CSS"],
+    github: "https://github.com/kuhanimkuu/youtube-clone",
+    live: "https://youtube-clone-kappa-red.vercel.app/"
   },
   {
-    title: "E-commerce Demo",
-    description: "Shop UI with product listing, cart UI and checkout flow (frontend demo).",
+    title: "Weather App",
+    description: "A responsive weather app built with HTML, CSS, and JavaScript that shows real-time weather information for any location.",
 
-    tech: ["React", "Tailwind", "JavaScript"],
-    github: "https://github.com/yourusername/ecommerce-site",
-    live: ""
+    tech: ["HTML", "CSS", "JavaScript"],
+    github: "https://github.com/kuhanimkuu/weather-app",
+    live: "https://weather-app-2-np7i.vercel.app/"
   }
 ];
 
