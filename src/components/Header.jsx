@@ -39,7 +39,7 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold">
-            Y
+            DM
           </div>
           <div>
             <h1 className="text-lg font-semibold">{ME.name}</h1>
