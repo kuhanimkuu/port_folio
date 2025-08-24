@@ -1,36 +1,70 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
-export default function Modal({ open, onClose, project, children }) {
-  const dialogRef = useRef(null);
-
+export default function Modal({ open, onClose, children, ariaLabel = "Dialog" }) {
   useEffect(() => {
-    if (!dialogRef.current) return;
-    if (open) {
-      try { dialogRef.current.showModal(); } catch {dialogRef.current.setAttribute("open", ""); }
-      
-      const first = dialogRef.current.querySelector("a, button, input, [tabindex]");
-      if (first) first.focus();
-    } else {
-      try { dialogRef.current.close(); } catch { dialogRef.current.removeAttribute("open"); }
-    }
-  }, [open]);
+    if (!open) return;
 
-  useEffect(() => {
-    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    // prevent background scroll
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose?.();
+    };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
 
-  if (!project) return null;
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  function onBackdropClick(e) {
+    if (e.target === e.currentTarget) onClose?.();
+  }
 
   return (
-    <dialog ref={dialogRef} className="rounded-2xl p-0">
-      <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 w-[min(780px,92vw)]">
-        {children}
-        <div className="mt-6 flex justify-end">
-          <button onClick={onClose} className="px-4 py-2 rounded-xl border">Close</button>
+    <div
+      role="dialog"
+      aria-label={ariaLabel}
+      aria-modal="true"
+      className="fixed inset-0 z-50 flex items-center justify-center px-4"
+      onClick={onBackdropClick}
+    >
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+
+      {/* Dialog */}
+      <div className="relative max-w-3xl w-full mx-auto">
+        <div
+          className="relative rounded-2xl p-6 border border-theme bg-theme shadow-lg"
+          style={{ zIndex: 10 }}
+        >
+          {/* Content slot */}
+          <div className="max-h-[70vh] overflow-auto">
+            {children}
+          </div>
+
+          {/* Footer with Close button */}
+          <div className="mt-6 flex justify-end">
+            {/* Theme-aware Close button */}
+            <button
+              onClick={onClose}
+              className="
+                px-4 py-2 rounded-xl font-medium
+                bg-gray-200 text-gray-800 hover:bg-gray-300
+                dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700
+                transition-colors
+                border border-theme
+              "
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
-    </dialog>
+    </div>
   );
 }
